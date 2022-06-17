@@ -1,5 +1,14 @@
+const express = require('express');
 const inquirer = require('inquirer');
-const mysql = require('mysql');
+const mysql = require('mysql2');
+
+const PORT = process.env.PORT || 3007;
+const app = express();
+// Express middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+console.log('Hello from HW12')
 
 
 function myFunction(){
