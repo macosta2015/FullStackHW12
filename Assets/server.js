@@ -45,7 +45,7 @@ setTimeout(function(){
         console.log(`Connected as id ${db.threadId} \n`);
         startApp();
     });
-    
+
 }, 2000);
 
 startApp = () => {
@@ -107,6 +107,16 @@ startApp = () => {
     })
 }
 
+function viewAllDepartments(){
+    connection.query(`SELECT * FROM department ORDER BY department_id ASC;`, (err, res) => {
+        if (err) throw err;
+        console.table('\n', res, '\n');
+        startApp();
+    })
+    console.log('View all departments, ')
+    connection.query
+    startApp();
+}
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
