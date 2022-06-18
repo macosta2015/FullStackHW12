@@ -2,7 +2,7 @@ const express = require('express');
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 
-const PORT = process.env.PORT || 3007;
+const PORT = process.env.PORT || 3006;
 const app = express();
 
 // Express middleware
@@ -14,38 +14,29 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',// MySQL username,
     password: 'ElonMusk2040!*',// MySQL password
-    database: 'classlist_db'
+    database: 'employeeTrackerDB'
 },
     console.log("Connected to the classlist_db database.")
 );
 
 // Query database, see the Database!
-db.query('SELECT * FROM classlist_db.students', function (err, results) {
-    console.log(results);
-});
+// db.query('SELECT * FROM classlist_db.students', function (err, results) {
+//     db.query('SELECT * FROM employeeTrackerDB.employee', function (err, results) {
+
+//     console.log(results);
+// });
 
 // Default response for any other request (Not Found)
 app.use((req, res) => {
     res.status(404).end();
 });
 
-
-// db.connect((err) => {
-//     if (err) throw err;
-//     console.log(`Connected as id ${db.threadId} \n`);
-//     startApp();
-// });
-
-
 //code before the pause
 setTimeout(function(){
-
     db.connect((err) => {
         if (err) throw err;
-        console.log(`Connected as id ${db.threadId} \n`);
         startApp();
     });
-
 }, 2000);
 
 startApp = () => {
@@ -108,14 +99,12 @@ startApp = () => {
 }
 
 function viewAllDepartments(){
-    connection.query(`SELECT * FROM department ORDER BY department_id ASC;`, (err, res) => {
-        if (err) throw err;
-        console.table('\n', res, '\n');
-        startApp();
-    })
-    console.log('View all departments, ')
-    connection.query
+    db.query('SELECT * FROM employeeTrackerDB.employee', function (err, results) {
+        console.log('View all departments')
+        console.log('\n', results, '\n');
+    // db.query
     startApp();
+});
 }
 
 app.listen(PORT, () => {
