@@ -2,52 +2,41 @@ const express = require('express');
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 
-
-// Connect to database
-const db = mysql.createConnection(
-    {
-    host: 'localhost',
-      // MySQL username,
-    user: 'root',
-      // MySQL password
-    password: 'ElonMusk2040!*',
-    database: 'classlist_db'
-    },
-    console.log(`Connected to the classlist_db database.`)
-);
-
-
-// Testing if we are reading something or not
-db.query('SELECT * FROM classlist_db.students', function (err, results) {
-    console.log(results);
-});
-
-const PORT = process.env.PORT || 3306;
+const PORT = process.env.PORT || 3007;
 const app = express();
-
-
 
 // Express middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// Connect to database
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',// MySQL username,
+    password: 'ElonMusk2040!*',// MySQL password
+    database: 'classlist_db'
+},
+    console.log("Connected to the classlist_db database.")
+);
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+// Query database, see the Database!
+// db.query('SELECT * FROM classlist_db.students', function (err, results) {
+//     console.log(results);
+// });
+
+// Default response for any other request (Not Found)
+app.use((req, res) => {
+    res.status(404).end();
 });
 
 
+db.connect((err) => {
+    if (err) throw err;
+    console.log(`Connected as id ${db.threadId} \n`);
+    startApp();
+});
 
-function myFunction(){
-    console.log("Hello World");
-
-    // startApplication()
-}
-
-
-
-
-function startApplication (){
+startApp = () => {
     inquirer.prompt([
         {
             name: 'initialInquiry',
@@ -107,7 +96,6 @@ function startApplication (){
 }
 
 
-
-
-
-myFunction();
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
