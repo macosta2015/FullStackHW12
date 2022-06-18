@@ -20,9 +20,9 @@ const db = mysql.createConnection({
 );
 
 // Query database, see the Database!
-// db.query('SELECT * FROM classlist_db.students', function (err, results) {
-//     console.log(results);
-// });
+db.query('SELECT * FROM classlist_db.students', function (err, results) {
+    console.log(results);
+});
 
 // Default response for any other request (Not Found)
 app.use((req, res) => {
@@ -30,11 +30,23 @@ app.use((req, res) => {
 });
 
 
-db.connect((err) => {
-    if (err) throw err;
-    console.log(`Connected as id ${db.threadId} \n`);
-    startApp();
-});
+// db.connect((err) => {
+//     if (err) throw err;
+//     console.log(`Connected as id ${db.threadId} \n`);
+//     startApp();
+// });
+
+
+//code before the pause
+setTimeout(function(){
+
+    db.connect((err) => {
+        if (err) throw err;
+        console.log(`Connected as id ${db.threadId} \n`);
+        startApp();
+    });
+    
+}, 2000);
 
 startApp = () => {
     inquirer.prompt([
