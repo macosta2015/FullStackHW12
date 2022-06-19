@@ -1,3 +1,5 @@
+
+//Libraries and packages that we are going to be needing
 const express = require('express');
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
@@ -14,7 +16,7 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',// MySQL username,
     password: 'ElonMusk2040!*',// MySQL password
-    database: 'employeeTrackerDB'
+    database: 'employeeTrackerDB' //This is the Database we are going to be working on
 },
     console.log("Connected to the classlist_db database.")
 );
@@ -51,29 +53,28 @@ startApp = () => {
     ]).then((response) => {
         switch (response.programList) {
             case 'View all departments':
-                viewAllDepartments();    
+                viewDepartments();    
                 break;
             case 'View all roles':
-                viewAllRoles();
+                viewRolles();
                 break;
             case 'View all employees':
-                viewAllEmployees();
+                viewEmployees();
                 break;
             case 'Add a department':
-                addADepartment();
+                addDeparment();
             break;
             case 'Add a role':
-                addARole();
+                addRole();
             break;
             case 'Add an employee':
-                addAnEmployee();
+                addEmployee();
             break;
             case 'Update employee\'s role':
                 updateEmployeeRole();
             break;
-            case 'Exit program':
-                connection.end();
-                console.log('DONE VIEWING THE DEPARTMENTS');
+            case 'Exit program': //We are done running the code
+                console.log('DONE VIEWING THE COMPANY\'S TEAM')
                 return;
             default:
                 break;
@@ -82,7 +83,7 @@ startApp = () => {
 }
 
 //Function to view all departments
-function viewAllDepartments(){
+function viewDepartments(){
     console.log('VIEW ALL DEPARTMENTS')
     db.query('SELECT * FROM employeeTrackerDB.department', function (err, results) {
         console.log('\n', results, '\n');
@@ -92,7 +93,7 @@ function viewAllDepartments(){
 }
 
 //Function to view all the Roles
-function viewAllRoles(){
+function viewRolles(){
     console.log('VIEW ALL ROLES')
     db.query('SELECT * FROM employeeTrackerDB.role', function (err, results) {
         console.log('\n', results, '\n');
@@ -102,7 +103,7 @@ function viewAllRoles(){
 }
 
 //Function to view all the Employees
-function viewAllEmployees(){
+function viewEmployees(){
     console.log('VIEW ALL EMPLOYEES')
     db.query('SELECT * FROM employeeTrackerDB.employee', function (err, results) {
         console.log('\n', results, '\n');
@@ -112,7 +113,7 @@ function viewAllEmployees(){
 }
 
 //Function to add the a role to the company 
-function addARole(){
+function addRole(){
     db.query(`SELECT * FROM department;`, (err, res) => {
         if (err) throw err;
         let departments = res.map(department => ({name: department.department_name, value: department.department_id }));
@@ -150,7 +151,7 @@ function addARole(){
 }
 
 //Function to add a department to the company
-function addADepartment(){
+function addDeparment(){
     console.log('ADD A DEPARTMENT')
     inquirer.prompt([
         {
@@ -172,7 +173,7 @@ function addADepartment(){
 }
 
 //Function to add an employee
-function addAnEmployee(){
+function addEmployee(){
     db.query(`SELECT * FROM role;`, (err, res) => {
         if (err) throw err;
         let roles = res.map(role => ({name: role.title, value: role.role_id }));
