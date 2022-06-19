@@ -1,5 +1,6 @@
 /* SQL commands to use*/
 DROP DATABASE IF EXISTS employeeTrackerDB;
+
 CREATE DATABASE employeeTrackerDB;
 
 USE employeeTrackerDB;

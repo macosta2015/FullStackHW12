@@ -1,4 +1,5 @@
 /*seed for the deparments*/
+
 INSERT INTO department (department_name)
 VALUES 
 ('Engineering'),
@@ -10,6 +11,7 @@ VALUES
 ('Executive');
 
 /*seed for the roles*/
+
 INSERT INTO role (title, salary, department_id)
 VALUES
 ('CEO', 10000000, 1),
@@ -27,14 +29,15 @@ VALUES
 ('Intern', 275000, 5);
 
 /*seed for the employees*/
+
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
-('Cristiano', 'Ronaldo', 12, NULL),
+('Cri', 'Ron', 12, NULL),
 ('Elon', 'Musk', 13, 1),
-('Richard', 'Branson', 14, 1),
+('Ric', 'Bran', 14, 1),
 ('Jeff', 'Bezos', 3, 2),
-('Ricardo', 'Paredes', 9, 2),
-('Iker', 'Casillas', 11, 2),
+('Ric', 'Pare', 9, 2),
+('Iker', 'Casil', 11, 2),
 ('Tom', 'Brady', 6, 2),
 ('Tiger', 'Woods', 1, 4),
 ('Frank', 'Alonso', 1, 4),
