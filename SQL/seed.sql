@@ -1,4 +1,4 @@
---Department Seeds
+/*seed for the deparments*/
 INSERT INTO department (department_name)
 VALUES 
 ('Engineering'),
@@ -8,9 +8,8 @@ VALUES
 ('IT'),
 ("Legal"),
 ('Executive');
-----------------------------------------------------
 
---Roles Seeds
+/*seed for the roles*/
 INSERT INTO role (title, salary, department_id)
 VALUES
 ('CEO', 10000000, 1),
@@ -26,9 +25,8 @@ VALUES
 ('Engineer I', 300000, 5),
 ('Engineer II', 275000, 5),
 ('Intern', 275000, 5);
-----------------------------------------------------
 
---Employees Seeds
+/*seed for the employees*/
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
 ('Cristiano', 'Ronaldo', 12, NULL),
@@ -48,5 +46,3 @@ VALUES
 ('Carla', 'Acosta', 8, 5),
 ('Rosa', 'Murillo', 10, 6),
 ('Gilberto', 'Garcia', 10, 6);
-----------------------------------------------------
-
