@@ -3,9 +3,9 @@
 #### We are going to be using MySQL Workbench in order to connect to the database. We are going to be using previous technologies like express, inquirer, and mysql2
 
 ## Technologies used
-express
-inquirer
-mysql2
+1. express
+2. inquirer
+3. mysql2
 
 ## Why is this useful 
 This program can help a company manage the employees that they have. You have all the main functionalities and even you can add some departments, employees, update the employees profile. 
