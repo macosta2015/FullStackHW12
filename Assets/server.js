@@ -37,18 +37,19 @@ setTimeout(function(){
         if (err) throw err;
         startApp();
     });
-}, 2000);
+}, 2000); // Makes it wait for 2 secons
 
+//startApp() is the function that we are going to be used when we want to ask the questions. 
 startApp = () => {
     inquirer.prompt([
         {
-            name: 'initialInquiry',
+            name: 'programList',
             type: 'rawlist',
             message: 'Welcome to the employee management program. What would you like to do?',
-            choices: ['View all departments', 'View all roles', 'View all employees', 'View all employees by manager', 'Add a department', 'Add a role', 'Add an employee', 'Update employee\'s role', 'Update employee\'s manager', 'Remove a department', 'Remove a role', 'Remove an employee', 'View total salary of department', 'Exit program']
+            choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update employee\'s role', 'Exit program']
         }
     ]).then((response) => {
-        switch (response.initialInquiry) {
+        switch (response.programList) {
             case 'View all departments':
                 viewAllDepartments();    
                 break;
@@ -58,9 +59,6 @@ startApp = () => {
             case 'View all employees':
                 viewAllEmployees();
                 break;
-            // case 'View all employees by manager':
-            //     viewAllEmployeesByManager();
-            // break;
             case 'Add a department':
                 addADepartment();
             break;
@@ -83,6 +81,7 @@ startApp = () => {
     })
 }
 
+//Function to view all departments
 function viewAllDepartments(){
     console.log('VIEW ALL DEPARTMENTS')
     db.query('SELECT * FROM employeeTrackerDB.department', function (err, results) {
@@ -92,6 +91,7 @@ function viewAllDepartments(){
 });
 }
 
+//Function to view all the Roles
 function viewAllRoles(){
     console.log('VIEW ALL ROLES')
     db.query('SELECT * FROM employeeTrackerDB.role', function (err, results) {
@@ -101,6 +101,7 @@ function viewAllRoles(){
 });
 }
 
+//Function to view all the Employees
 function viewAllEmployees(){
     console.log('VIEW ALL EMPLOYEES')
     db.query('SELECT * FROM employeeTrackerDB.employee', function (err, results) {
@@ -110,28 +111,7 @@ function viewAllEmployees(){
 });
 }
 
-
-// addADepartment = () => {
-//     inquirer.prompt([
-//         {
-//         name: 'newDept',
-//         type: 'input',
-//         message: 'What is the name of the department you want to add?'   
-//         }
-//     ]).then((response) => {
-//         db.query(`INSERT INTO department SET ?`, 
-//         {
-//             department_name: response.newDept,
-//         },
-//         (err, res) => {
-//             if (err) throw err;
-//             console.log(`\n ${response.newDept} successfully added to database! \n`);
-//             startApp();
-//         })
-//     })
-// };
-
-
+//Function to add the a role to the company 
 function addARole(){
     db.query(`SELECT * FROM department;`, (err, res) => {
         if (err) throw err;
@@ -169,6 +149,7 @@ function addARole(){
     })
 }
 
+//Function to add a department to the company
 function addADepartment(){
     console.log('ADD A DEPARTMENT')
     inquirer.prompt([
@@ -190,6 +171,7 @@ function addADepartment(){
     })
 }
 
+//Function to add an employee
 function addAnEmployee(){
     db.query(`SELECT * FROM role;`, (err, res) => {
         if (err) throw err;
@@ -201,23 +183,23 @@ function addAnEmployee(){
                 {
                     name: 'firstName',
                     type: 'input',
-                    message: 'What is the new employee\'s first name?'
+                    message: 'What is the employee\'s first name?'
                 },
                 {
                     name: 'lastName',
                     type: 'input',
-                    message: 'What is the new employee\'s last name?'
+                    message: 'What is the employee\'s last name?'
                 },
                 {
                     name: 'role',
                     type: 'rawlist',
-                    message: 'What is the new employee\'s title?',
+                    message: 'What is the employee\'s title?',
                     choices: roles
                 },
                 {
                     name: 'manager',
                     type: 'rawlist',
-                    message: 'Who is the new employee\'s manager?',
+                    message: 'Who is the employee\'s manager?',
                     choices: employees
                 }
             ]).then((response) => {
@@ -245,6 +227,7 @@ function addAnEmployee(){
     })
 }
 
+//Function to update an employee
 function updateEmployeeRole(){
     db.query(`SELECT * FROM role;`, (err, res) => {
         if (err) throw err;
@@ -262,7 +245,7 @@ function updateEmployeeRole(){
                 {
                     name: 'newRole',
                     type: 'rawlist',
-                    message: 'What should the employee\'s new role be?',
+                    message: 'What should be the employee\'s new role?',
                     choices: roles
                 },
             ]).then((response) => {
@@ -277,7 +260,7 @@ function updateEmployeeRole(){
                 ], 
                 (err, res) => {
                     if (err) throw err;
-                    console.log(`\n Successfully updated employee's role in the database! \n`);
+                    console.log(`We updated the employee\'s role in the database! \n`);
                     startApp();
                 })
             })
@@ -286,7 +269,7 @@ function updateEmployeeRole(){
 }
 
 
-
+//We are listening to the port!
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
